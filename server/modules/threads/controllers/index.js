@@ -9,7 +9,8 @@ const postThread = async (req, res) => {
             authorization.replace('Bearer ', ''),
             process.env.TOKEN_SECRET
         )
-        const { question } = req.body
+        const { username } = req.body
+        console.log("username : " + JSON.stringify(req.body))
 
         // checking maximum thread count (5)
         const threads = await prisma.thread.findMany({
@@ -29,7 +30,7 @@ const postThread = async (req, res) => {
             data: {
                 question: {
                     create: {
-                        text: question
+                        text: username
                     }
                 },
                 user: {
@@ -48,7 +49,7 @@ const postThread = async (req, res) => {
         }
 
         // post to Gemini SDK
-        const prompt = `Tolong roasting profile linkedin dengan username ${question}. Berikan respon dalam 1 kalimat saja`
+        const prompt = `Tolong roasting profile linkedin dengan username ${username}. Berikan respon dalam 1 kalimat saja`
 
         const result = await model.generateContent(prompt)
         const response = result.response

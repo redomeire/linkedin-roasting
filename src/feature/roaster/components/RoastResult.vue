@@ -1,9 +1,11 @@
 <template>
     <h3>Your result goes here</h3>
-    <div class="result-board">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Similique, soluta? Facere aliquid eaque sequi qui? Natus totam nesciunt fuga tempora.
+    <div v-if="props.resultText" class="result-board">
+      {{ props.resultText.value }}
     </div>
 </template>
 
 <script setup>
+import { defineProps } from 'vue'
+const props = defineProps(['resultText'])
 </script>
